@@ -1,20 +1,24 @@
 const Gameboard = (() => {
-    let gameBoard = [];
+    let board = [];
 
     const initializeBoard = () => {
-        gameBoard = Array(9).fill(null);
+        board = Array(9).fill(null);
+    }
+
+    const getCellValue = (index) => {
+        return board[index];
     }
 
     const updateCell = (index, symbol) => {
-        gameBoard[index] = symbol;
+        board[index] = symbol;
     }
 
     // additional methods for checking win/draw conditions
 
     return {
         initializeBoard,
+        getCellValue,
         updateCell,
-        // Expose other necessary methods
     };
 })();
 
@@ -27,3 +31,23 @@ const Player = (name, symbol) => {
         getSymbol,
     };
 };
+
+const Game = (() => {
+    const player1 = Player('Player 1', 'X');
+    const player2 = Player('Player 2', 'O');
+    let currentPlayer = player1;
+
+    // instance of Gameboard module
+    const gameboard = Gameboard;
+
+    // update gameboard based on clicked cell index
+    const handleCellClick = (index) => {
+        if (gameboard.getCellValue(index) === null) {
+            gameboard.updateCell(index, currentPlayer.getSymbol());
+        }
+    }
+
+    return {
+        handleCellClick,
+    }
+})();
