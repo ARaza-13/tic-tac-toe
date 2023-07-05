@@ -13,7 +13,7 @@ const Gameboard = (() => {
         return board[index];
     }
 
-    const updateCell = (index, symbol) => {
+    const updateBoard = (index, symbol) => {
         board[index] = symbol;
     }
 
@@ -21,7 +21,7 @@ const Gameboard = (() => {
         initializeBoard,
         getBoard,
         getCellValue,
-        updateCell,
+        updateBoard,
     };
 })();
 
@@ -32,6 +32,7 @@ const Player = (name, symbol) => {
 const Game = (() => {
     const player1 = Player('Player 1', 'X');
     const player2 = Player('Player 2', 'O');
+    const cells = document.querySelectorAll('#game-board td');
     let currentPlayer;
     let gameboard;
 
@@ -75,20 +76,14 @@ const Game = (() => {
     }
 
     const renderBoard = () => {
-        const cells = document.querySelectorAll('#game-board td');
-
         cells.forEach((cell, index) => {
             cell.textContent = gameboard.getCellValue(index) || '';
         });
     }
 
     const addCellEventListeners = () => {
-        const cells = document.querySelectorAll('#game-board td');
-        
-        cells.forEach((cell, index) => {
-            cell.addEventListener('click', () => {
-                handleCellClick(index);
-            });
+        cells.forEach((cell) => {
+            cell.addEventListener('click', handleCellClick);
         });
     } 
 
@@ -97,23 +92,38 @@ const Game = (() => {
     }
 
     // update gameboard based on clicked cell index
-    const handleCellClick = (index) => {
-        if (gameboard.getCellValue(index) === null) {
-            gameboard.updateCell(index, currentPlayer.symbol);
-            renderBoard();
+    const handleCellClick = (event) => {
+        const cellIndex = parseInt(event.target.dataset.index);
 
-            if (checkWin()) {
-                console.log(`${currentPlayer.symbol} wins!`)
-                // game is won
-                // add logic to handle game over, display winner, etc.
-            } else if (checkTie()) {
-                console.log("It's a tie")
-                // game is tie
-                // add logic to handle game over, display tie, etc.
-            } else {
-                switchPlayer();
-            }
+        if (gameboard.getBoard()[cellIndex] != null) {
+            return; // if cell is already filled, ignore click
         }
+
+        gameboard.updateBoard(cellIndex, currentPlayer.symbol);
+        renderBoard();
+
+        if (checkWin()) {
+            console.log(`${currentPlayer.symbol} wins!`);
+            endGame();
+            return;
+            // game is won
+            // add logic to handle game over, display winner, etc.
+        } else if (checkTie()) {
+            console.log("It's a tie");
+            endGame();
+            return;
+            // game is tie
+            // add logic to handle game over, display tie, etc.
+        } else {
+            switchPlayer();
+        }
+        
+    }
+
+    const endGame = () => {
+        cells.forEach((cell) => {
+            cell.removeEventListener("click", handleCellClick);
+        });
     }
 
     return {
@@ -121,4 +131,5 @@ const Game = (() => {
     }
 })();
 
-Game.initialize();
+const game = Game;
+game.initialize();
