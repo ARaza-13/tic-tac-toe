@@ -63,16 +63,18 @@ const Game = (() => {
                 handleCellClick(index);
             });
         });
+    } 
+
+    const switchPlayer = () => {
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
     }
-    
 
     // update gameboard based on clicked cell index
     const handleCellClick = (index) => {
-        console.log(index);
-        console.log(gameboard.getCellValue(index))
         if (gameboard.getCellValue(index) === null) {
             gameboard.updateCell(index, currentPlayer.getSymbol());
             renderBoard();
+            switchPlayer();
         }
     }
 
