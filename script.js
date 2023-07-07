@@ -29,7 +29,7 @@ const Game = (() => {
     const player2 = Player('Player 2', 'O');
     const gameboard = Gameboard;
     const cells = document.querySelectorAll('#game-board td');
-    let currentPlayer = player1;
+    let currentPlayer;
 
     // update gameboard based on clicked cell index
     const handleCellClick = (event) => {
@@ -99,9 +99,14 @@ const Game = (() => {
 
     const initialize = () => {
         gameboard.resetBoard();
+        currentPlayer = player1;
         cells.forEach((cell) => {
+            cell.textContent = "";
             cell.addEventListener('click', handleCellClick);
         });
+
+        const startButton = document.getElementById('start-button');
+        startButton.addEventListener('click', initialize);
     }
 
     return {
