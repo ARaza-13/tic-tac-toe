@@ -9,6 +9,22 @@
         <script src="script.js" defer></script>
     </head>
     <body>
+        <h1>Tic Tac Toe</h1>
+
+        <h2>Player 1</h2>
+        <input type="text" id="player1-name" placeholder="Player 1 Name">
+        <select id="player1-symbol">
+            <option value="X">X</option>
+            <option value="O">O</option>
+        </select>
+
+        <h2>Player 2</h2>
+        <input type="text" id="player2-name" placeholder="Player 2 Name">
+        <select id="player2-symbol">
+            <option value="X">X</option>
+            <option value="O">O</option>
+        </select>
+        
         <table id="game-board">
             <tr>
                 <td data-index="0"></td>
@@ -26,6 +42,7 @@
                 <td data-index="8"></td>
             </tr>
         </table>
-        <button id="start-button">Restart</button>
+
+        <button id="start-button">Start/Restart</button>
     </body>
 </html>

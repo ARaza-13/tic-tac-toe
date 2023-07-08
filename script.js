@@ -25,11 +25,9 @@ const Player = (name, symbol) => {
 };
 
 const Game = (() => {
-    const player1 = Player('Player 1', 'X');
-    const player2 = Player('Player 2', 'O');
     const gameboard = Gameboard;
     const cells = document.querySelectorAll('#game-board td');
-    let currentPlayer;
+    let player1, player2, currentPlayer;
 
     // update gameboard based on clicked cell index
     const handleCellClick = (event) => {
@@ -43,7 +41,7 @@ const Game = (() => {
         event.target.textContent = currentPlayer.symbol;
 
         if (checkWin()) {
-            console.log(`${currentPlayer.symbol} wins!`);
+            console.log(`${currentPlayer.name} wins!`);
             endGame();
             return;
         } else if (checkTie()) {
@@ -97,16 +95,40 @@ const Game = (() => {
         });
     }
 
-    const initialize = () => {
-        gameboard.resetBoard();
-        currentPlayer = player1;
-        cells.forEach((cell) => {
-            cell.textContent = "";
-            cell.addEventListener('click', handleCellClick);
-        });
+    const startGame = () => {
+        const player1Name = document.getElementById("player1-name").value;
+        const player1Symbol = document.getElementById("player1-symbol").value;
+        const player2Name = document.getElementById("player2-name").value;
+        const player2Symbol = document.getElementById("player2-symbol").value;
 
+        if (validateInputs(player1Name, player1Symbol, player2Name, player2Symbol)) {
+            player1 = Player(player1Name, player1Symbol);
+            player2 = Player(player2Name, player2Symbol);
+            currentPlayer = player1;
+
+            gameboard.resetBoard();
+            cells.forEach((cell) => {
+                cell.textContent = "";
+                cell.addEventListener('click', handleCellClick);
+            });
+        }
+    }
+
+    const validateInputs = (name1, symbol1, name2, symbol2) => {
+        if (symbol1 === symbol2) {
+            console.log("Player 1 and 2 cannot have the same symbol");
+            return false;
+        }
+        if (name1.trim() === "" || name2.trim() === "") {
+            console.log("Please have a name entered for both players");
+            return false;
+        }
+        return true;
+    }
+
+    const initialize = () => {
         const startButton = document.getElementById('start-button');
-        startButton.addEventListener('click', initialize);
+        startButton.addEventListener('click', startGame);
     }
 
     return {
