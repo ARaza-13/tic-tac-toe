@@ -4,15 +4,25 @@
     box-sizing: border-box;
 }
 
-#game-board {
-    border-collapse: collapse;
+header {
+    text-align: center;
+}
+main {
+    text-align: center;
 }
 
-#game-board td {
-    width: 100px;
-    height: 100px;
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 454px;
+    height: 454px;
+    border: 2px solid black;
+    margin: 0px auto;
+}
+
+#game-board div {
+    width: 150px;
+    height: 150px;
     border: 1px solid black;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 24px;
+    font-size: 125px;
 }

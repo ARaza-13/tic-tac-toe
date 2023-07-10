@@ -26,7 +26,7 @@ const Player = (name, symbol) => {
 
 const Game = (() => {
     const gameboard = Gameboard;
-    const cells = document.querySelectorAll('#game-board td');
+    const cells = document.querySelectorAll('#game-board div');
     let player1, player2, currentPlayer;
 
     const displayMessage = (message) => {
