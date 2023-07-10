@@ -29,6 +29,10 @@ const Game = (() => {
     const cells = document.querySelectorAll('#game-board td');
     let player1, player2, currentPlayer;
 
+    const displayMessage = (message) => {
+        document.getElementById('message').textContent = message;
+    }
+
     // update gameboard based on clicked cell index
     const handleCellClick = (event) => {
         const cellIndex = parseInt(event.target.dataset.index);
@@ -41,15 +45,16 @@ const Game = (() => {
         event.target.textContent = currentPlayer.symbol;
 
         if (checkWin()) {
-            console.log(`${currentPlayer.name} wins!`);
+            displayMessage(`${currentPlayer.name} wins!`);
             endGame();
             return;
         } else if (checkTie()) {
-            console.log("It's a tie");
+            displayMessage("It's a tie");
             endGame();
             return;
         } else {
             switchPlayer();
+            displayMessage(`Current Player: ${currentPlayer.name}`);
         }
         
     }
@@ -107,6 +112,7 @@ const Game = (() => {
             currentPlayer = player1;
 
             gameboard.resetBoard();
+            displayMessage(`Current Player: ${currentPlayer.name}`);
             cells.forEach((cell) => {
                 cell.textContent = "";
                 cell.addEventListener('click', handleCellClick);
@@ -116,11 +122,11 @@ const Game = (() => {
 
     const validateInputs = (name1, symbol1, name2, symbol2) => {
         if (symbol1 === symbol2) {
-            console.log("Player 1 and 2 cannot have the same symbol");
+            displayMessage("Player 1 and 2 cannot have the same symbol");
             return false;
         }
         if (name1.trim() === "" || name2.trim() === "") {
-            console.log("Please have a name entered for both players");
+            displayMessage("Please have a name entered for both players");
             return false;
         }
         return true;
