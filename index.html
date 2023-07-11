@@ -9,24 +9,31 @@
         <script src="script.js" defer></script>
     </head>
     <body>
-        <header>
+        <header class="header">
             <h1>Tic Tac Toe</h1>
         </header>
-        <main>
-            <div class="character-selection">
-                <h2>Player 1</h2>
-                <input type="text" id="player1-name" placeholder="Player 1 Name">
-                <select id="player1-symbol">
-                    <option value="X">X</option>
-                    <option value="O">O</option>
-                </select>
-
-                <h2>Player 2</h2>
-                <input type="text" id="player2-name" placeholder="Player 2 Name">
-                <select id="player2-symbol">
-                    <option value="X">X</option>
-                    <option value="O">O</option>
-                </select>
+        <main class="main">
+            <div class="players">
+                <div class="player">
+                    <h2>Player 1:</h2>
+                    <div class="choices">
+                        <input type="text" id="player1-name" placeholder="Player 1 Name">
+                        <select id="player1-symbol">
+                            <option value="X">X</option>
+                            <option value="O">O</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="player">
+                    <h2>Player 2:</h2>
+                    <div class="choices">
+                        <input type="text" id="player2-name" placeholder="Player 2 Name">
+                        <select id="player2-symbol">
+                            <option value="X">X</option>
+                            <option value="O">O</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div id="message"></div>
             <div id="game-board">
@@ -40,7 +47,12 @@
                 <div data-index="7"></div>
                 <div data-index="8"></div>
             </div>
-            <button id="start-button">Start/Restart</button>
+            <div class="button">
+                <button id="start-button">Start/Restart</button>
+            </div>
         </main>
+        <footer>
+
+        </footer>
     </body>
 </html>
